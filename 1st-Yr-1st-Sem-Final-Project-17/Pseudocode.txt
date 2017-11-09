@@ -1,0 +1,105 @@
+START
+
+DECLARATIONS:
+cost, ttl_cost orderTotal, ttl_orderTotal, gct, 
+total_gct, discount, total_discount, T-Shirt_Count, 
+Bag_Count, Cap_Count, quantity, average, count as Integer;
+Company_Name, Name as String; 
+Apparel_Code as Character;
+
+WHILE(TRUE) DO
+
+PRINT "Enter Company Name";
+READ Company_Name;
+
+IF Company name = "XXX" then
+	BREAK;
+ENDIF
+count + count + 1;
+PRINT "Enter Contant Name";
+READ Name;
+
+APCODE:
+PRINT "Choose Apparel";
+PRITN "A. T-Shirts";
+PRITN "B. Bags";
+PRITN "C. Caps";
+READ Apparel_Code;
+
+IF Apparel_Code == "A" THEN
+	cost = 320;
+	AQUANT:
+	PRINT "Enter quantity(Must be more than 25)";
+	READ quantity;
+
+	IF quantity < 25 THEN
+		GOTO AQUANT;
+	ENDIF
+
+	T-Shirt_Count = T-Shirt_Count + quantity;
+
+ELSE IF Apparel_Code == "B" THEN 
+	cost = 250;
+	BQUANT:
+	PRINT "Enter quantity(Must be more than 11)";
+	READ quantity;
+
+	IF quantity < 11 THEN
+		GOTO BQUANT;
+	ENDIF
+
+	Bag_Count = Bag_Count + quantity;
+ELSE IF Apparel_Code == "C" THEN
+	cost = 170;
+	CQUANT:
+	PRINT "Enter quantity(Must be more than 25)";
+	READ quantity;
+
+	IF quantity < 25 THEN
+		GOTO CQUANT;
+	ENDIF
+
+	Cap_Count = Cap_Count + quantity;
+ELSE
+	GOTO APCODE;
+ENDIF
+
+cost = cost * quantity;
+
+IF quantity > 50 THEN
+	discount = cost * 0.05;
+	cost = cost + discount;
+ENDIF
+
+gct = cost * 0.165;
+orderTotal = cost + gct;
+
+PRINT "Company Name: (Company_Name)";
+PRINT "Contant Name: (Name)";
+PRINT "Order GCT: (gct)";
+PRINT "Order Total: (orderTotal)"
+IF discount > 0 THEN
+	PRINT "Order Discount: (discount)";
+ENDIF
+
+total_orderTotal = total_orderTotal + order_Total;
+total_discount = total_discount + discount;
+total_gct = total_gct + gct;
+ttl_cost = ttl_cost + cost;
+discount = 0;
+
+ENDWHILE
+
+average = total_orderTotal/count;
+
+PRINT "Number of Companies: (count)";
+PRINT "Total amount of T-Shirt orders: (T-Shirt_Count)";
+PRINT "Total amount of Bag orders: (Bag_Count)";
+PRINT "Total amount of Cap orders: (Cap_Count)";
+PRINT "Total Order Cost: (ttl_cost)";
+PRINT "Total Order GCT: (total_gct)";
+PRINT "Total Order Discount: (discount)";
+PRINT "Total Order Total: (orderTotal)";
+PRINT "Average order value/Company: (average)";
+
+STOP

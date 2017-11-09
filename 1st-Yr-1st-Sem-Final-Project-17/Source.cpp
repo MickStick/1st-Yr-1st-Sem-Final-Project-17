@@ -9,7 +9,6 @@ int main() {
 	/*--------------- Declarations ---------------*/
 	char comp_name[50];
 	char fname[30], lname[30];
-	char telNum[11];
 	char apCode;
 	int cost = 0, ttl_cost = 0, orTotal = 0, ttl_orTotal = 0, gct = 0, ttl_gct = 0,
 		disc = 0, ttl_disc = 0, tsCount = 0, bgCount = 0, cpCount = 0,
@@ -20,36 +19,47 @@ int main() {
 		
 		COMP_NAME:
 	/*--------------- Collecting Data ---------------*/
-		printf("Please Enter Company      *put '_' in place of whitespaces\n");
+		printf("Please Enter Company      *put '_' in place of whitespaces ... enter \"XXX\" to end\n");
 		scanf("%s",comp_name);
 		if (!strcmp(comp_name,"XXX")) {
 			break;
 		}
-		else if (!strcmp(comp_name, "") || comp_name == NULL) {
+		else if (!strcmp(comp_name, "") || comp_name == NULL) {//Just in case
 			goto COMP_NAME;
 		}
 		c += 1;
-		NAME:
+		FNAME:
 		printf("Please enter first name: ");
 		scanf("%s", fname);
+		for (int x = 0; x < strlen(fname); x++) {//Validating name, ensuring the user doesn't enter a digit
+			int k = fname[x] - '0';
+			if (k < 10) {
+				printf("Invalid Name Entry... Must be text only\n");
+				goto FNAME;
+			}
+		}
+		LNAME:
 		printf("\nPlease enter last  name: ");
 		scanf("%s", lname);
-		if (fname == NULL || lname == NULL) {
-			printf("Invalid Name Entry\n");
-			goto NAME;
+		for (int x = 0; x < sizeof(lname); x++) {//Validating name, ensuring the user doesn't enter a digit
+			int k = lname[x] - '0';
+			if (k < 10) {
+				printf("Invalid Name Entry.... Must be text only\n");
+				goto LNAME;
+			}
 		}
 		APCODE:
 		printf("\nWhat would you like to order:\n");
 		printf("A. T-Shirts\n");
 		printf("B. Bags\n");
 		printf("C. Caps\n");
-		printf(">> ");
+		printf("Apparel Code >> ");
 		Sleep(3);
 		apCode = getch();
-		apCode = toupper(apCode);
+		apCode = toupper(apCode); //Turn character input into uppercase
 
-
-		if (apCode == 'A') {
+				////Validate Apparel Code
+		if (apCode == 'A') { 
 			cost = 320;
 			min_quant = 25;
 			
@@ -64,7 +74,7 @@ int main() {
 			min_quant = 25;			
 		}
 		else {
-			printf("\nInvalid Apparel Code...\n");
+			printf("\nInvalid Apparel Code...\n");//Apparel Code validation error handling
 			system("pause");
 			goto APCODE;
 		}
@@ -73,8 +83,8 @@ int main() {
 		printf("\n** Must be %d or more **\n", min_quant);
 		printf("Quantity: ");
 		scanf("%d", &quant);
-		if (quant < min_quant) {
-			printf("Order quantity insufficient...\n");
+		if (quant < min_quant) {//Validate Quantity
+			printf("Order quantity insufficient...\n");//Apparel Code validation error handling
 			goto QUANT;
 		}
 		if (cost == 320) {
@@ -90,7 +100,7 @@ int main() {
 			
 /*--------------- Calculations ---------------*/
 		cost = cost * quant;
-		if (quant > 50) {
+		if (quant > 50) {//Checking for discount eligibility
 			disc = cost * 0.05;
 			cost += disc;
 		}
@@ -104,12 +114,11 @@ int main() {
 		printf("Company Name: %s \n", comp_name);
 		printf("Contact Name: %s %s \n", fname, lname);
 		printf("Order GCT (16.5%): %d\n", gct);
-		printf("Order Total(before mould): %d \n", orTotal);
-		printf("Order Total(after mould): %d \n", orTotal + 3500);
-		if (disc != 0) {
+		printf("Order Total: %d \n", orTotal);
+		if (disc != 0) {//Check for discount
 			printf("Order discount: %d\n", disc);
 		}
-		printf("********************** Receipt **********************\n");
+		printf("********************** Receipt **********************\n\n");
 		
 
 /*--------------- Outputs ---------------*/
@@ -119,8 +128,9 @@ int main() {
 		ttl_disc += disc;
 		ttl_gct += gct;
 		ttl_cost += cost - disc;
-/*---------------- Post Calculations ----------------*/
 		disc = 0;
+/*---------------- Post Calculations ----------------*/
+		
 		
 	}
 	avg = ttl_orTotal / c;
@@ -133,8 +143,7 @@ int main() {
 	printf("Total \"Order Cost\": %d \n", ttl_cost);
 	printf("Total \"Order GCT\": %d\n", ttl_gct);
 	printf("Total \"Order Discount\": %d\n", ttl_disc);
-	printf("Total \"Order Total\" (before moulds): %d \n",ttl_orTotal); 
-	printf("Total \"Order Total\" (after moulds): %d \n", ttl_orTotal + (3500 * c));
+	printf("Total \"Order Total\": %d \n",ttl_orTotal); 
 	printf("Average order value/Company: %d \n", avg);
 	printf("*************************************************************\n");
 	printf("*************************************************************\n");
